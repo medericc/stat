@@ -1,103 +1,160 @@
-import Image from "next/image";
+'use client';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useState } from 'react';
+
+import VideoHeader from './components/VideoHeader';
+import InputForm from './components/InputForm';
+import MatchTable from './components/MatchTable';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+
+interface MatchAction {
+    period: string;
+    gt: string; // Game time
+    actionType: string;
+    success: boolean;
+    s1: string; // Score team 1
+    s2: string; // Score team 2
+    player: string; // Nom du joueur
+    familyName: string;
+}
+
+interface MatchData {
+    pbp: MatchAction[]; // Play-by-play data
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    const [csvGenerated, setCsvGenerated] = useState(false);
+    const [csvData, setCsvData] = useState<string[][]>([]);
+    const [selectedLink, setSelectedLink] = useState<string>(''); // État pour le lien sélectionné
+    const [customUrl, setCustomUrl] = useState(''); // État pour l'URL personnalisée
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    const [isWaitingModalOpen, setIsWaitingModalOpen] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+    const matchLinks: { name: string; url: string }[] = [   
+      { name: "Landerneau", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2513224/bs.html" },
+        { name: "Angers", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2513197/bs.html" },
+      
+    ];
+    
+    const handleGenerate = async () => {
+        const url = selectedLink || customUrl;
+    
+        if (!url) {
+            setModalMessage("Sélectionne un Match 😎");
+            setIsModalOpen(true);
+            return;
+        }
+    
+        try {
+            const jsonUrl = url
+                .replace(/\/u\/FFBB\//, '/data/')
+                .replace(/\/bs\.html\/?/, '/')
+                .replace(/\/$/, '') + '/data.json';
+    
+            console.log("URL JSON générée :", jsonUrl);
+    
+            const proxyUrl = `/api/proxy?url=${encodeURIComponent(jsonUrl)}`;
+            const response = await fetch(proxyUrl);
+    
+            if (!response.ok) {
+                console.error("Erreur de récupération :", response.status, await response.text());
+                setModalMessage("Léna s'échauffe 🏀");
+                setIsWaitingModalOpen(true);
+                return;
+            }
+    
+            const data: MatchData = await response.json();
+            console.log("Données récupérées :", data);
+    
+            const filteredData = data.pbp
+                .filter((action) => action.familyName === "Monasse")
+                .sort((a, b) => b.gt.localeCompare(a.gt));
+    
+            console.log("Actions triées pour Léna :", filteredData);
+    
+            const csvContent = generateCSV(filteredData);
+            console.log("CSV généré :", csvContent);
+    
+            const rows = csvContent.split('\n').slice(1).map((row) => row.split(','));
+            setCsvData(rows);
+            setCsvGenerated(true);
+        } catch (error) {
+            console.error("Erreur dans generateCsv:", error);
+            alert('Une erreur est survenue lors de la génération du CSV.');
+        }
+    };
+    
+    const generateCSV = (data: MatchAction[]): string => {
+        let csv = 'Période,Horodatage,Action,Réussite,Score\n';
+        
+        data.forEach((action) => {
+            csv += `${action.period},${action.gt},${action.actionType},${action.success ? '1' : '0'},${action.s1}-${action.s2}\n`;
+        });
+    
+        return csv;
+    };
+
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen p-6 sm:p-12 gap-8 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+        <VideoHeader className="absolute top-0 left-0 w-full" />
+        
+        <main className="flex flex-col items-center gap-6 w-full max-w-lg sm:max-w-2xl md:max-w-4xl">
+          <Select value={selectedLink} onValueChange={setSelectedLink}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Sélectionne un match" />
+            </SelectTrigger>
+            <SelectContent>
+              {matchLinks.map((link) => (
+                <SelectItem key={link.url} value={link.url}>
+                  {link.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+    
+          <InputForm 
+            value={customUrl} 
+            onChange={(e) => setCustomUrl(e.target.value)} 
+            onGenerate={handleGenerate} 
+          />
+    
+          {csvGenerated && (
+            <div className="w-full overflow-x-auto">
+              <MatchTable data={csvData} />
+            </div>
+          )}
+        </main>
+    
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogContent className="w-[80%] max-w-xs rounded-lg shadow-lg bg-white dark:bg-gray-800 p-6">
+                <DialogHeader>
+                    <DialogTitle className="text-center mb-4">⚠️ Erreur</DialogTitle>
+                    <DialogDescription className="text-center mt-4">{modalMessage}</DialogDescription>
+                </DialogHeader>
+            </DialogContent>
+        </Dialog>
+    
+        <Dialog open={isWaitingModalOpen} onOpenChange={setIsWaitingModalOpen}>
+            <DialogContent className="w-[80%] max-w-xs rounded-lg shadow-lg bg-white dark:bg-gray-800 p-6">
+                <DialogHeader>
+                    <DialogTitle className="flex items-center justify-center gap-2 mb-2">⏳ Patiente</DialogTitle>
+                    <DialogDescription className="text-center mt-2">{modalMessage}</DialogDescription>
+                </DialogHeader>
+            </DialogContent>
+        </Dialog>
+    
+        <footer className="text-sm text-gray-900 mt-8">
+          <a href="https://www.youtube.com/@fan_lucilej" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Produit par @fan_carlaleite
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        </footer>
+      </div>
+    );
 }
