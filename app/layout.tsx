@@ -9,8 +9,8 @@ export const metadata = {
         apple: "/apple-touch-icon.png", // iPhone/iPad
     },
     openGraph: {
-      title: "Lucile & Carla Stats",
-      description: "Les stats détaillées en direct.",
+      title: "Léna Stats",
+      description: "Le play by play en direct.",
       url: "https://lenastats.vercel.app/",
       siteName: "Léna Stats",
       images: [
