@@ -11,23 +11,23 @@ export const metadata = {
     openGraph: {
       title: "Lucile & Carla Stats",
       description: "Les stats détaillées en direct.",
-      url: "https://carla-lucile.vercel.app/",
-      siteName: "Lucile & Carla Stats",
+      url: "https://lenastats.vercel.app/",
+      siteName: "Léna Stats",
       images: [
         {
-          url: "https://carla-lucile.vercel.app/preview.jpg", // Mets une image propre ici !
+          url: "https://lenastats.vercel.app/preview.jpg", // Mets une image propre ici !
           width: 1200,
           height: 630,
-          alt: "Site de Carla et Lucile",
+          alt: "Site de la Léna",
         },
       ],
       type: "website",
     },
     twitter: {
       card: "summary_large_image", // ✅ Correction ici
-      title: "Lucile & Carla Stats",
+      title: "Léna Stats",
       description: "Les stats détaillées en direct.",
-      images: ["https://carla-lucile.vercel.app/preview.jpg"], // Même image que Open Graph
+      images: ["https://lenastats.vercel.app/preview.jpg"], // Même image que Open Graph
     },
   };
   
