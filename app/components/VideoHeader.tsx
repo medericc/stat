@@ -11,7 +11,7 @@ export default function VideoHeader({ className = "" }: { className?: string }) 
           playsInline
         />
       </div>
-      <h1 className="text-[1.6rem] font-extrabold text-center mt-8 bg-gradient-to-r from-red-900 to-red-950 bg-clip-text text-transparent">
+      <h1 className="text-[1.6rem] font-extrabold text-center mt-8 bg-gradient-to-r from-red-800 to-red-950 bg-clip-text text-transparent">
   STATS PAR MINUTES
 </h1>
 
