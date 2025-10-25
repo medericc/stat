@@ -38,6 +38,7 @@ export default function Home() {
     const [isWaitingModalOpen, setIsWaitingModalOpen] = useState(false);
 
     const matchLinks: { name: string; url: string }[] = [  
+      { name: "Feytiat", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713798/bs.html" },
       { name: "Montbrison", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713787/bs.html" },
      { name: "Voiron", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713784/bs.html" },
       { name: "Champagne", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713772/bs.html" },
