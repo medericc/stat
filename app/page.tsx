@@ -38,7 +38,12 @@ export default function Home() {
     const [isWaitingModalOpen, setIsWaitingModalOpen] = useState(false);
 
     const matchLinks: { name: string; url: string }[] = [  
-    { name: "Aulnoye", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713812/bs.html" },
+  
+    { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713813/bs.html" },
+  
+  
+  
+      { name: "Aulnoye", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713812/bs.html" },
       { name: "Mondeville", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713803/bs.html" },
       { name: "Feytiat", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713798/bs.html" },
       { name: "Montbrison", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713787/bs.html" },
