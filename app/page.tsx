@@ -38,6 +38,10 @@ export default function Home() {
     const [isWaitingModalOpen, setIsWaitingModalOpen] = useState(false);
 
     const matchLinks: { name: string; url: string }[] = [   
+
+         { name: "Voiron Basket", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713875/bs.html" },
+ 
+
   { name: "Champagne Basket", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713863/bs.html" },
  
        { name: "Rouen", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713861/bs.html" },
@@ -46,9 +50,9 @@ export default function Home() {
  
            { name: "Saint Amand", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713840/bs.html" },
  
-      { name: "SIG Basket", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713829/bs.html" },
-  { name: "La Tronche", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713826/bs.html" },
-    { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713813/bs.html" },
+//       { name: "SIG Basket", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713829/bs.html" },
+//   { name: "La Tronche", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713826/bs.html" },
+//     { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713813/bs.html" },
   
   
   
