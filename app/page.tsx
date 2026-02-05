@@ -37,7 +37,10 @@ export default function Home() {
     const [modalMessage, setModalMessage] = useState("");
     const [isWaitingModalOpen, setIsWaitingModalOpen] = useState(false);
 
-    const matchLinks: { name: string; url: string }[] = [   
+    const matchLinks: { name: string; url: string }[] = [  
+        
+         { name: "Feytiat", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713889/bs.html" },
+ 
  { name: "Montbrison", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713878/bs.html" },
  
          { name: "Voiron Basket", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713875/bs.html" },
