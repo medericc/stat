@@ -38,12 +38,12 @@ export default function Home() {
     const [isWaitingModalOpen, setIsWaitingModalOpen] = useState(false);
 
     const matchLinks: { name: string; url: string }[] = [  
-//         { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713904/bs.html" },
-//           { name: "Aulnoye", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713903/bs.html" },
+        { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713904/bs.html" },
+          { name: "Aulnoye", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713903/bs.html" },
  
-//           { name: "Mondeville", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713894/bs.html" },
+          { name: "Mondeville", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713894/bs.html" },
  
-//          { name: "Feytiat", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713889/bs.html" },
+         { name: "Feytiat", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713889/bs.html" },
  
 // //  { name: "Montbrison", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713878/bs.html" },
  
@@ -60,7 +60,7 @@ export default function Home() {
  
 //       { name: "SIG Basket", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713829/bs.html" },
 //   { name: "La Tronche", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713826/bs.html" },
-    { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713813/bs.html" },
+    // { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2713813/bs.html" },
   
   
   
@@ -80,15 +80,15 @@ export default function Home() {
 
 
 
-      { name: "Montbrison 3", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2648651/bs.html" },
+    //   { name: "Montbrison 3", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2648651/bs.html" },
     
-      { name: "Montbrison 2", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2648647/bs.html" },
-     { name: "Montbrison", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2648643/bs.html" },
+    //   { name: "Montbrison 2", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2648647/bs.html" },
+    //  { name: "Montbrison", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2648643/bs.html" },
        
     //   { name: "Toulouse", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2513460/bs.html" },
 
 
-      { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2513446/bs.html" },
+      // { name: "Pole France", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2513446/bs.html" },
 
     //   { name: "Alençon", url: "https://fibalivestats.dcd.shared.geniussports.com/u/FFBB/2513427/bs.html" },
 
