@@ -33,9 +33,15 @@ export default function Home() {
           </a>
         </div>
       </div>
-
-
-
+    {/* Footer */}
+      <footer className="mt-16 mb-8 text-center">
+        <p className="text-purple-300 text-sm">
+          Fait avec <span className="text-red-400">❤️</span> par fan_carlaleite
+        </p>
+      </footer>
+    </div>
+  )
+}
 
 {/* 
 'use client';
@@ -251,4 +257,4 @@ export default function Home() {
         </footer>
       </div>
     );
-} */}
+} */} 
